@@ -25,8 +25,22 @@ def decoding(arr):
       originalMessage = originalMessage + " "+ i[-4]+i[3:-4]
   return originalMessage
 
-message = input("Enter the Message:- ")
-secretMessage = encoding(message)
-print("Secret Message :-"+ secretMessage)
-print("Original Message :-"+ decoding(secretMessage.lstrip(" ")))
+while(True):
+  print("List of operators:-")
+  print("1.Encrypt\n2.Decrypt\n3.Exit")
+  chioce = int(input("Enter the number:-"))
+  if chioce==1:
+    message = input("Enter the Origin Message:- ")
+    secretMessage = encoding(message)
+    print("Secret Message :-"+ secretMessage+"\n")
 
+  elif chioce==2:
+    message = input("Enter the Secret Message:- ")
+    originalMessage = decoding(message.lstrip(" "))
+    print("Secret Message :-"+ originalMessage+"\n")
+
+  elif chioce==3:
+    break
+
+  else :
+    print("Please Enter the vaild number\n")
