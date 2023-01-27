@@ -1,4 +1,4 @@
-Project Details:-
+Project Describe:-
 
 Encrypt Process:
 1) First Receive the input from user and divide into words.
