@@ -1,46 +1,37 @@
-import random
+from cryptography.fernet import Fernet
 
-def encoding(arr):
-  '''Original Message is convert into Secret Message'''
-  listOfWords = arr.split(" ")
-  secretMessage = ""
-  for i in listOfWords :
-    if len(i)<3 :
-      secretMessage+= " "+i[::-1]
-    else :
-      startRandomWord = chr(97+random.randint(0,25)).upper() + chr(97+random.randint(0,25)) + chr(97+random.randint(0,25))
-      endRandomWord = chr(97+random.randint(0,25)) + chr(97+random.randint(0,25)) + chr(97+random.randint(0,25))
-      secretMessage = secretMessage + " "+ startRandomWord + i[1::]+i[0] + endRandomWord
+def generate_key():
+    key = Fernet.generate_key()
 
-  return secretMessage
+    with open("secret.key","wb") as file:
+        file.write(key)
 
-def decoding(arr):
-  '''Secret Message is convert into Original Message'''
-  listOfWords = arr.split(" ")
-  originalMessage = ""
-  for i in listOfWords :
-    if len(i)<3 :
-      originalMessage+= " "+i[::-1]
-    else :
-      originalMessage = originalMessage + " "+ i[-4]+i[3:-4]
-  return originalMessage
+def load_key():
+    with open("secret.key","rb") as file:
+        key = file.read()
+    return key
 
-while(True):
-  print("List of operators:-")
-  print("1.Encrypt\n2.Decrypt\n3.Exit")
-  chioce = int(input("Enter the number:-"))
-  if chioce==1:
-    message = input("Enter the Origin Message:- ")
-    secretMessage = encoding(message)
-    print("Secret Message :-"+ secretMessage+"\n")
+def encrypt_message(message):
+    key = load_key()
+    encoded_message = message.encode()
+    f= Fernet(key)
+    encrypted_message = f.encrypt(encoded_message)
+    return encrypted_message
 
-  elif chioce==2:
-    message = input("Enter the Secret Message:- ")
-    originalMessage = decoding(message.lstrip(" "))
-    print("Secret Message :-"+ originalMessage+"\n")
+def decrypt_message(encrypted_message):
+    key = load_key()
+    f = Fernet(key)
+    decrypted_message = f.decrypt(encrypted_message)
+    return decrypted_message.decode()
 
-  elif chioce==3:
-    break
+generate_key()
 
-  else :
-    print("Please Enter the vaild number\n")
+# Encrypt a message
+original_message = "This is a very informative message!"
+encrypted = encrypt_message(original_message)
+print(f"Encrypted Message: {encrypted}")
+
+# Decrypt the message
+decrypted = decrypt_message(encrypted)
+print(f"Decrypted Message: {decrypted}")
+    
