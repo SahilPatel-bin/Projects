@@ -1,14 +1,10 @@
 Project Describe:-
 
-Encrypt Process:
-1) First Receive the input from user and divide into words.
-2)if the word contains atleast 3 characters then remove the first letter and append it at the end.Now,append three random characters at the starting and the end of string
-else:
-   simply reverse the string
+This project demonstrates how to securely encrypt and decrypt sensitive information using Python and the cryptography library. The system employs symmetric encryption through the Fernet module, which guarantees message confidentiality. The project involves key generation, secure message encryption, and decryption.
 
-Decrypt Process:
-1) First Receive the input from user and divide into words.
-2) if the word contains less than 3 characters, reverse it
-3) else:
-   remove 3 random characters from start and end. Now remove the last letter and append it to the beginning of string
-   
+Functionality:
+1) Key Generation: A cryptographic key is generated once and saved to a file. This key is required for both encrypting and decrypting messages. It ensures that the data can only be decrypted by someone who possesses the key.
+
+2) Message Encryption: The system takes a plain text message, converts it into a byte format, and encrypts it using the generated key. This encryption ensures that the message remains secure and cannot be understood by unauthorized users.
+
+3) Message Decryption: After encryption, the system can decrypt the message back to its original form using the same key. The process is seamless and demonstrates how encryption systems can protect sensitive data.
